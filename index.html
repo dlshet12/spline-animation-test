@@ -1,183 +1,686 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinned Section with Long Scroll</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    .socials-container {
+      
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        width: 100%;
+        height: 50px;
+        margin-top: 15px;
+        cursor: pointer;
+       z-index: 3; 
+    }
 
-        body, html {
-            height: 100%;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
+    .social-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        height: 100%;
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        transition: background 0.3s ease;
+    }
 
-        /* Background container for Spline */
-        .spline-background {
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+    .linkedin {
+        border-radius: 0px 0px 0px 16px;
+        background: var(--Primary-Galaxy-Purple, #7A2BF7);
+        /* Purple for LinkedIn */
+    }
 
-        /* Spline iframe takes up entire container */
-        .spline-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+    .email {
+        background: var(--Lilac-Lilac-500, #685FF7);
+              border-radius: 0px 0px 16px 0px;
+        /* Darker purple for Email */
+    }
 
-        /* Main container for scrollable content */
-        .content-container {
-            position: absolute;
-            height: auto; /* Allow full page scrolling */ 
-            scroll-behavior: smooth;
-            top: 0;
-            left: 0;
-            width: 100vw;
-        }
+    .phone {
+  /*      border-radius: 0px 0px 16px 0px;
+        background: var(--Indigo-Indigo-500, #448DDF);
+         Blue for Phone */
+    }
 
-        /* Sections styling */
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    /* Adjust expert card to accommodate the new social bar */
+    .expert-text-card {
+        padding-bottom: 65px;
+        /* Add space for social bar */
+    }
 
-        .section-content {
-            max-width: 800px;
-            width: 100%;
-            padding: 2rem;
-            background-color: rgba(30, 30, 30, 0.7);
-            border-radius: 8px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
+    /* For the desktop cards */
+    #textCard2 {
+          padding-bottom: 80px !important;  
+        /* Add space for social bar  65*/
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
+    /* Animation Section */
+    .animation-section {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+    }
 
-        p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Fake scrolling space */
-        .spacer {
-            height: 4000px;
-        }
-      #section1 {
-        align-items: flex-start
-      }
-      #section2 {
-        align-items: flex-end
-      }
-      #section3 {
-        align-items: center
-      }
-      #section4 {
-        align-items: flex-end
-      }
-      #section5 {
-        align-items: center
-      }
-      #section6 {
-        align-items: flex-right
-      }
-      .bg {
+    /* Glassmorphism background */
+    .background {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        z-index: 1;
+    }
 
-        z-index: -2;
-      }
-    </style>
-</head>
-<body>
-    <!-- Fixed spline.design background -->
-    <div class="spline-background" id="splineBg">
-        <spline-viewer url="https://prod.spline.design/Udh2IdKfs7-1IiQc/scene.splinecode" events-target="global"></spline-viewer>
-    </div>
+    .animation-container {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 50px;
+    }
 
-    <!-- Scrollable content sections -->
-    <div class="content-container">
-      <div class='bg'></div>
-        <section class="section" id="section1">
-            <div class="section-content">
-                <h1>Section One (Pinned for 4000px)</h1>
-            </div>
-        </section>
+    .text-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: visible;
+        z-index: 10;
+        padding: 0 245px;
+        text-align: center;
+        gap: 20px;
+    }
 
-        <div class="spacer"></div> <!-- Adds 4000px of scroll space -->
+    .meet-experts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-        <section class="section" id="section2">
-            <div class="section-content">
-                <h1>Section Two</h1>
-                <p>This section appears after scrolling 4000px.</p>
-            </div>
-        </section>
-      
-      <section class="section" id="section3">
-            <div class="section-content">
-                <h1>Section Three</h1>
-                <p>This section appears after scrolling 4000px.</p>
-            </div>
-        </section>
-      <section class="section" id="section4">
-            <div class="section-content">
-                <h1>Section Four</h1>
-                <p>This section appears after scrolling 4000px.</p>
-            </div>
-        </section>
-      <section class="section" id="section5">
-            <div class="section-content">
-                <h1>Section Five</h1>
-                <p>This section appears after scrolling 4000px.</p>
-            </div>
-        </section>
-      <section class="section" id="section6">
-            <div class="section-content">
-                <h1>Section Six</h1>
-                <p>This section appears after scrolling 4000px.</p>
-            </div>
-        </section>
-    </div>
+    .first-word {
+        color: var(--Text-Light, #FFF);
+        font-size: 50px;
+        font-style: normal;
+        font-weight: 300;
+    }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    .word {
+        font-size: 50px;
+        font-weight: bold;
+        color: #fff;
+        margin: 0 10px;
+    }
+
+    .moveUp {
+        color: var(--Text-Light, #FFF);
+        text-align: center;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+    }
+
+    .moveDown {
+        color: var(--Text-Light-Grey, #EDEDED);
+        text-align: center;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;
+        margin-top: 20px;
+        width: 563px
+    }
+
+    .reveal-div {
+        position: absolute;
+        top: 30%;
+        left: 92%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 200px;
+        border-radius: 15px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        font-weight: bold;
+        opacity: 0;
+        z-index: 5;
+        text-align: center;
+        padding: 20px;
+        transition: border-radius 0.5s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .expert-cards {
+        display: none;
+        flex-direction: column;
+        gap: 30px;
+        margin-top: 40px;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .expert-card {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+          height: 450px;
+    }
+
+    .expert-text-card {
+        position: relative;
+        width: 100%;
+        padding: 20px;
+        background: linear-gradient(297deg, rgba(0, 64, 147, 0.30) -8.27%, rgba(0, 0, 119, 0.30) 134.76%);
+        backdrop-filter: blur(25px);
+        border-radius: 16px;
+        border: 1px solid rgba(0, 64, 147, 0.3);
+        z-index: 2;
+    }
+
+    .expert-image-card {
+        display: none;
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background-color: #f8f8f8;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .expert-image-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .expert-profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .expert-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #8a56ff;
+        color: #EDEDED;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 16px;
+        margin-right: 12px;
+    }
+
+    .expert-info h2 {
+        color: #EDEDED;
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .expert-info p {
+        color: #EDEDED;
+        margin: 0;
+        font-size: 12px;
+    }
+
+    .expert-bio {
+        color: #EDEDED;
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    .our-team-underline {
+        display: flex;
+        flex-direction: column;
+        align-items: center
+    }
+
+    .our-team {
+        width: 20px;
+        height: 3px;
+        background: white;
+    }
+
+    .meet-experts {
+        line-height: normal
+    }
     
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger);
+        @media (max-width: 1680px) {
+            .reveal-div {
+            left: 67%
+            }
+        }
 
-            ScrollTrigger.create({
-                trigger: "#section1",
-                start: "top top", 
-                end: "+=4000",
-                pin: true, 
-                pinSpacing: false,
-            });
+    @media (max-width: 1024px) {
+        .meet-experts {
+            line-height: normal
+        }
+    }
+</style>
 
-            ScrollTrigger.create({
-                trigger: "#splineBg",
-                start: "top top", 
-                end: "+=4800",
-                pin: true, 
-                pinSpacing: false,
-            });
+<!-- Animation Section -->
+<section id="animation-section" class="animation-section">
+
+    <div class="animation-container">
+        <div class="text-container" id="textContainer">
+            <div class="our-team-underline" id="moveUp">
+                <div class="moveUp">Our Team</div>
+                <div class="our-team"></div>
+            </div>
+            <div class="meet-experts">
+                <div class="first-word" id="happyWord">Meet The</div>
+                <div class="word" id="sellersWord">Experts Behind TurningPoint</div>
+            </div>
+            <div class="moveDown" id="moveDown">Get to know the visionary leaders driving AI-powered transformation
+                at TurningPoint. Our team brings deep expertise in strategy, technology, and execution to help
+                businesses scale smarter and faster.</div>
+
+            <!-- Mobile-only expert cards that will be stacked vertically -->
+            <div class="expert-cards" id="expertCards">
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop-only reveal div with expert cards -->
+    <div class="reveal-div" id="revealDiv">
+        <div style="width: 100vw; display: flex; align-items: center;">
+
+            <div style="position: relative; height: 400px;">
+                <div class="expert-card" style="position: relative; width: 550px; height: 400px;">
+                    <!-- Text Card (positioned on top) -->
+
+                    <!-- Image Card (positioned below) -->
+                    <div
+                        style="position: absolute; top: 100px; left: 0; z-index: 1; width: 200px; height: 200px; background-color: #f8f8f8; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;">
+                        <img src="https://cdn.prod.website-files.com/67ecf534ece15ece63894d6a/67ef841e4194d31f89ce290c_Alex_BGBLACK%20(4).png"
+                            alt="Sample image" style="height: 100%; object-fit: cover;">
+                    </div>
+
+                    <div id="textCard2"
+                        style="position: absolute; top: 180px; left: 190px; z-index: 2; height: auto; width: 319px; padding: 16px;  border-radius: 16px;
+  background: linear-gradient(297deg, rgba(0, 64, 147, 0.30) -8.27%, rgba(0, 0, 119, 0.30) 134.76%);
+;backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); cursor: pointer">
+                        <p
+                            style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 300;line-height: normal;margin-bottom:0">
+                            Alex is an accomplished and experienced senior leader in AI, technology strategy &
+                            transformation, M&A integration & enterprise technology delivery. Combining the
+                            entrepreneurial spirit launching and scaling start-ups with extensive big 4 technology
+                            consulting expertise with Deloitte, Alex has lived experience in what is required to
+                            build and scale businesses while recognising the need for delivery rigour and best
+                            practice in realising value from technology investments.
+
+                        </p>
+                        <div style="display: flex; align-items: center;justify-content: center; ">
+
+                            <div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 18px;font-style: normal;font-weight: 400;line-height: normal;margin-top: 12px;">
+                                    Alex Moynihan
+                                </div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 400;line-height: normal;">
+                                    Managing Director & Co-Founder
+                                </div>
+                            </div>
+                        </div>
+                        <div class="socials-container">
+                            <a href="https://www.linkedin.com/in/alex-moynihan-b160204/" target="_blank"
+                                class="social-icon linkedin">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de79846ff9ec4a828eb2ad_Icon%20(10).svg"
+                                    alt="LinkedIn">
+                            </a>
+                            <a href="mailto:shettydurga659@gmail.com" class="social-icon email">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de798a9813cb129fde9f33_Icon%20(9).svg"
+                                    alt="Email">
+                            </a>
+                 
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div style="position: relative; height: 400px;">
+                <div class="expert-card" style="position: relative; width: 550px; height: 400px;">
+                    <!-- Text Card (positioned on top) -->
+                    <div id="textCard2"
+                        style="position: absolute; top: 180px; left: 0; z-index: 2; height: auto; width: 319px; padding: 16px;  border-radius: 16px;
+   background: linear-gradient(297deg, rgba(0, 64, 147, 0.30) -8.27%, rgba(0, 0, 119, 0.30) 134.76%);
+;backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); cursor: pointer">
+                        <p
+                            style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 300;line-height: normal;margin-bottom:0">
+                            Karan is a result-oriented leader dedicated to driving transformation in organisations
+                            through AI & technology innovation. Karan has led large scale technology transformation
+                            programs in banking, telco & utilities working with Deloitte & EY, that created
+                            measurable & impactful operational efficiencies through AI & technology. His experience
+                            includes IT led transformation strategy development & ‘hands-on’ management of complex
+                            technology delivery projects.
+                        </p>
+                        <div style="display: flex; align-items: center;justify-content: center">
+
+                            <div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 18px;font-style: normal;font-weight: 400;line-height: normal;margin-top: 12px;">
+                                    Karan Joshi
+                                </div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 400;line-height: normal;">
+                                    Managing Director & Co-Founder
+                                </div>
+                            </div>
+                        </div>
+                        <div class="socials-container">
+                            <a href="https://www.linkedin.com/in/karan-joshi-4516499/" target="_blank" class="social-icon linkedin">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de79846ff9ec4a828eb2ad_Icon%20(10).svg"
+                                    alt="LinkedIn">
+                            </a>
+                            <a href="mailto:karanjoshi@turningpointadvisory.com.au" class="social-icon email">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de798a9813cb129fde9f33_Icon%20(9).svg"
+                                    alt="Email">
+                            </a>
+                     
+                        </div>
+
+                    </div>
+
+                    <!-- Image Card (positioned below) -->
+                    <div
+                        style="position: absolute; top: 100px; left: 310px; z-index: 1; width: 200px; height: 200px; background-color: #f8f8f8; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;">
+                        <img src="https://cdn.prod.website-files.com/67ecf534ece15ece63894d6a/67ef843bf2f32ed59cf775ee_Karan_BGBLACK%20(4).png"
+                            alt="Sample image" style="height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+
+            <div style="position: relative; height: 400px;">
+                <div class="expert-card" style="position: relative; width: 520px; height: 400px;">
+
+                       <!-- Image Card (positioned below) -->
+                       <div
+                       style="position: absolute; top: 100px; left:0; z-index: 1; width: 200px; height: 200px; background-color: #f8f8f8; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;">
+                       <img src="https://cdn.prod.website-files.com/67ecf534ece15ece63894d6a/67ef8434dfd174ae82c14ed9_John_BGBLACK%20(4).png"
+                           alt="Sample image" style="height: 100%; object-fit: cover;">
+                   </div>
+
+                    <!-- Text Card (positioned on top) -->
+                    <div id="textCard2"
+                        style="position: absolute; top: 180px; left: 190px; z-index: 2; height: auto; width: 300px; padding: 16px;  border-radius: 16px;
+  background: linear-gradient(297deg, rgba(0, 64, 147, 0.30) -8.27%, rgba(0, 0, 119, 0.30) 134.76%);
+;backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); cursor: pointer">
+                        <p
+                            style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 300;line-height: normal;margin-bottom:0">
+                            John is a recognised leader in delivering technology transformation as a systems
+                            integrator and trusted advisor. John brings a strong combination of leadership skills
+                            and technical background to align teams to successfully deliver complex technical
+                            programs of work on time and on budget against business strategy. He thrives when
+                            problem solving along with bringing structure to initiatives where there is considerable
+                            business change and ambiguity
+
+                        </p>
+                        <div style="display: flex; align-items: center;justify-content: center">
+
+                            <div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 18px;font-style: normal;font-weight: 400;line-height: normal;margin-top: 12px;">
+                                    John Edwards
+                                </div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 400;line-height: normal;">
+                                    Client Delivery Leader
+                                </div>
+                            </div>
+                        </div>
+                        <div class="socials-container">
+                            <a href="https://www.linkedin.com/in/john-edwards-44aa185/" target="_blank"
+                                class="social-icon linkedin">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de79846ff9ec4a828eb2ad_Icon%20(10).svg"
+                                    alt="LinkedIn">
+                            </a>
+                            <a href="mailto:contact@example.com" class="social-icon email">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de798a9813cb129fde9f33_Icon%20(9).svg"
+                                    alt="Email">
+                            </a>
+                        
+                        </div>
+
+                    </div>
+
+                  </div>
+            </div>
+
+            <div style="position: relative; height: 400px;">
+                <div class="expert-card" style="position: relative; width: 550px; height: 400px;">
+                    <!-- Text Card (positioned on top) -->
+                    <div id="textCard2"
+                        style="position: absolute; top: 180px; left: 0; z-index: 2; height: auto; width: 300px; padding: 16px; border-radius: 16px;
+ background: linear-gradient(297deg, rgba(0, 64, 147, 0.30) -8.27%, rgba(0, 0, 119, 0.30) 134.76%);
+;backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); cursor: pointer">
+                        <p
+                            style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 300;line-height: normal;margin-bottom:0">
+                            Muhammed is a passionate Data Scientist specialising in applied AI for business
+                            transformation. He brings cutting-edge insights and fearless innovation to our AI practice.
+                            With a Bachleor’s in Data Science and a passion for solving real-world problems with machine
+                            learning and Generative AI, he is the driving force behind our AI-powered
+                            solutions—transforming complex challenges into smart, scalable outcomes.
+                        </p>
+                        <div style="display: flex; align-items: center;justify-content: center">
+
+                            <div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 18px;font-style: normal;font-weight: 400;line-height: normal;margin-top: 12px;">
+                                    Muhammed Mafawalla</div>
+                                <div
+                                    style="color: var(--Text-Light-Grey, #EDEDED);font-size: 12px;font-style: normal;font-weight: 400;line-height: normal;">
+                                    Data Scientist</div>
+                            </div>
+                        </div>
+                        <!-- Replace this inside each .expert-card -->
+                        <div class="socials-container">
+                            <a href="https://www.linkedin.com/in/m-mafawalla/" target="_blank" class="social-icon linkedin">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de79846ff9ec4a828eb2ad_Icon%20(10).svg"
+                                    alt="LinkedIn">
+                            </a>
+                       
+                          <a href="mailto:muhammedmafawalla@turningpointadvisory.com.au" class="social-icon email">
+                                <img src="https://cdn.prod.website-files.com/67d913e8f0fa3252afd354f7/67de798a9813cb129fde9f33_Icon%20(9).svg"
+                                    alt="Email">
+                            </a>
+                        
+                        </div>
+                    </div>
+
+                    <!-- Image Card (positioned below) -->
+                    <div
+                        style="position: absolute; top: 100px; left: 290px; z-index: 1; width: 200px; height: 200px; background-color: #f8f8f8; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;">
+                        <img src="https://cdn.prod.website-files.com/67ecf534ece15ece63894d6a/67ef843fcf81a605425acae2_Mo_BGBLACK%20(4).png"
+                            alt="Sample image" style="height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+  // Initialize GSAP and ScrollTrigger and ScrollTo
+gsap.registerPlugin(ScrollTrigger);
+
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+    const textContainer = document.getElementById('textContainer');
+    const happyWord = document.getElementById('happyWord');
+    const sellersWord = document.getElementById('sellersWord');
+    const moveUp = document.getElementById('moveUp');
+    const moveDown = document.getElementById('moveDown');
+    const revealDiv = document.getElementById('revealDiv');
+    const expertCards = document.getElementById('expertCards');
+
+    // Get screen width to determine scroll amount
+    const setResponsiveScrollValues = () => {
+        // Default values for different screen sizes
+        let scrollLeftAmount;
+        let scrollDistance = 1500; // Default scroll distance
+        
+      if (window.innerWidth >= 2560) {
+            // Large desktop
+            scrollLeftAmount = "-37vw";
+            scrollDistance = 2000;
+        }
+           else if (window.innerWidth >= 1920) {
+            // Large desktop
+            scrollLeftAmount = "-45vw";
+            scrollDistance = 1800;
+        }
+                else if (window.innerWidth >= 1680) {
+            // Large desktop
+            scrollLeftAmount = "-65vw";
+            scrollDistance = 1800;
+        }
+    else if (window.innerWidth >= 1440) {
+            // Large desktop
+            scrollLeftAmount = "-90vw";
+            scrollDistance = 1800;
+        } else if (window.innerWidth >= 1024) {
+            // Standard desktop
+            scrollLeftAmount = "-140vw";
+            scrollDistance = 1600;
+        } else if (window.innerWidth >= 768) {
+            // Tablet
+            scrollLeftAmount = "-250vw";
+            scrollDistance = 1400;
+        } else {
+            // Mobile
+            scrollLeftAmount = "-70vw";
+            scrollDistance = 1200;
+        }
+        
+        return { scrollLeftAmount, scrollDistance };
+    };
+
+    // Initial setup
+    let { scrollLeftAmount, scrollDistance } = setResponsiveScrollValues();
+    
+    // Handle resize events
+    window.addEventListener('resize', () => {
+        // Update values when screen size changes
+        const newValues = setResponsiveScrollValues();
+        scrollLeftAmount = newValues.scrollLeftAmount;
+        scrollDistance = newValues.scrollDistance;
+        
+        // Refresh ScrollTrigger to apply new values
+        ScrollTrigger.refresh();
+    });
+
+    setupDesktopAnimation();
+
+    function setupDesktopAnimation() {
+        // Variable to track if animation is complete
+        let animationComplete = false;
+
+        // Timeline for the animation - with pinning for proper scroll control
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#animation-section",
+                start: "top 10%",
+                end: `+=${scrollDistance}`, // Use dynamic scroll distance
+                pin: true, // Pin the section during the animation
+                scrub: true,
+                onUpdate: (self) => {
+                    // When animation is complete
+                    if (self.progress >= 0.95 && !animationComplete) {
+                        animationComplete = true;
+                    }
+                }
+            }
         });
-    </script>
 
-    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
-</body>
-</html>
+        // Stage 1: Move from bottom to center (0-25% scroll)
+        tl.to(textContainer, {
+            y: "-30vh", // Move up to center from the bottom
+            ease: "power2.inOut",
+            duration: 0.25
+        }, 0);
+
+        // Stage 2: Start fading text elements BEFORE they begin to move (added fading effect)
+        tl.to([happyWord, sellersWord, moveUp, moveDown], {
+            opacity: 0.8, // Start fading
+            duration: 0.1
+        }, "fade-start");
+
+        // Stage 2: Split the words and reveal the div (25-50% scroll)
+        tl.to(happyWord, {
+            x: "-20vw", // Move left
+            opacity: 0, // Complete fade out
+            ease: "power2.inOut",
+            duration: 0.5
+        }, "split");
+
+        tl.to(sellersWord, {
+            x: "20vw", // Move right
+            opacity: 0, // Complete fade out
+            ease: "power2.inOut",
+            duration: 0.5
+        }, "split");
+
+        tl.to(moveUp, {
+            y: "-2vw", // Move up
+            opacity: 0, // Complete fade out
+            ease: "power2.inOut",
+            duration: 0.5
+        }, "split");
+
+        tl.to(moveDown, {
+            y: "5vw", // Move down
+            opacity: 0, // Complete fade out
+            ease: "power2.inOut",
+            duration: 0.5
+        }, "split");
+
+        // Replace with this (create a new label after split is complete):
+        tl.addLabel("text-gone", "split+=0.5");  // Create a new label that occurs after text fade out
+        tl.to(revealDiv, {
+            opacity: 1,
+            scale: 1.2,
+            duration: 0.25,
+            ease: "back.out(1.7)"
+        }, "text-gone");
+
+        // Stage 3: Expand the div to fullscreen (50-75% scroll)
+        tl.to(revealDiv, {
+            width: "100vw",
+            height: "100vh",
+            borderRadius: "0px",
+            duration: 0.25,
+            ease: "power2.inOut"
+        }, "expand");
+
+        // Ensure text is completely invisible when the div goes fullscreen
+        tl.set([happyWord, sellersWord, moveUp, moveDown], {
+            opacity: 0
+        }, "expand");
+
+        // Stage 4: Move the fullscreen div slightly to the left (75-100% scroll)
+        // Using the responsive scrollLeftAmount based on screen size
+        tl.to(revealDiv, {
+            x: scrollLeftAmount, // Use dynamic value based on screen size
+            duration: 0.5,
+            ease: "power1.inOut"
+        }, "move");
+    }
+});
+</script>
